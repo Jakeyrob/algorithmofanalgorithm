@@ -21,46 +21,29 @@
 // '#' is a block
 /////////////////////////////////////////////////////////////
 
-var waterBlocks = function (blocks) {
-  // deduct number of blocks in current row from smallest on left or right
+var waterBlocks = function(blocks) {
+  var count = 0;
+  var start = 0;
+  var end = blocks.length - 1;
+  var maxLeft = blocks[start];
+  var maxRight = blocks[end];
 
-  // Store water count
-  var water = 0;
-
-  // Store highest tower left
-  var highestLeft = 0;
-
-  // store highest tower right
-  var highestRight = 0;
-
-  // Iterate over array
-  for (var i = 0; i < blocks.length; i++) {
-
-    // if current larger than highest, replace highest
-    if (blocks[i] > highestLeft) {
-      highestLeft = blocks[i];
-
-    // if current is less than highest, iterate over remaining blocks to check if any are higher
-    } else if (blocks[i] < highestLeft) {
-      for (var j = i; j < blocks.length; j++) {
-        if (blocks[j] > highestRight && blocks[j] > highestLeft) {
-          highestRight = blocks[j];
-          console.log("highestRight changed: ", highestRight);
-          break;
-        }
-        else if (blocks[j] > highestRight) {
-          highestRight = blocks[j];
-          console.log("highestRight changed: ", highestRight);
-        }
+  while(start !== end) {
+    if (maxLeft < maxRight) {
+      start++;
+      if (blocks[start] < maxLeft) {
+        count += maxLeft - blocks[start];
       }
-      var newWater = Math.min(highestLeft, highestRight) - blocks[i];
-      console.log("newWater is: ", newWater);
-      water += newWater;
-      highestRight = 0;
+      maxLeft = Math.max(maxLeft, blocks[start]);
+    } else {
+      end--;
+      if (blocks[end] < maxRight) {
+        count += maxRight - blocks[end];
+      }
+      maxRight = Math.max(maxRight, blocks[end]);
     }
   }
-
-  return water;
+  return count;
 };
 
 //////////////////////////////////////////////////

@@ -8,8 +8,22 @@
 //
 /////////////////////////////////////////////////////////////
 
-var getOptimalMeetingPoint = function () {
-  // TODO: Implement
+var getOptimalMeetingPoint = function (matrix) {
+  var medianRow = 0;
+  var medianCol = 0;
+  var people = 0;
+
+  for (var row = 0; row < matrix.length; row++) {
+    for (var col = 0; col < matrix[0].length; col++) {
+      if (matrix[row][col] !== 0) {
+        medianRow += row * matrix[row][col];
+        medianCol += col * matrix[row][col];
+        people += matrix[row][col];
+      }
+    }
+  }
+  matrix[Math.round(medianRow / people)][math.round(medianCol / people)] = 'X';
+  return matrix;
 };
 
 

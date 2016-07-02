@@ -15,7 +15,22 @@
 /////////////////////////////////////////////////////////////
 
 var findPivotedWord = function (array, start, end) {
-  // TODO: IMPLEMENT
+  start = start || 0;
+  end = end || array.length - 1;
+
+  var mid = Math.floor((end - start) / 2) + start;
+
+  // If we're down the the last 2 elements of a pivot, the element
+  // at start should be greater than the element at end
+  if (start === mid) {
+    return array[start] > array[end] ? start : null;
+  }
+
+  if (array[start] < array[mid]) {
+    return findPivotedWord(array, mid, end);
+  } else {
+    return findPivotedWord(array, start, mid);
+  }
 };
 
 /////////////////////////////////////////////////////////////
